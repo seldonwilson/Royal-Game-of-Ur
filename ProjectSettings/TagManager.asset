@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dice
-  - Ground
+  - DieLanding
   layers:
   - Default
   - TransparentFX

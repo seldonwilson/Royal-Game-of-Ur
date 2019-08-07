@@ -3,15 +3,17 @@
 public class Die : MonoBehaviour
 {
    [SerializeField]
-   private DieSide[] _diceSides = null;
+   private DieFace[] _faces = null;
+
    private Rigidbody _rigidbody;
    private Vector3   _initPos;
    private bool      _hasLanded;
    private bool      _hasThrown;
    private bool      _isCocked;
-   private int       _diceValue;
+   private int       _value;
 
-   public int DiceValue { get { return _diceValue; }}
+   public int Value { get { return _value; }}
+
 
    private void Start()
    {
@@ -20,44 +22,47 @@ public class Die : MonoBehaviour
       Reset();
    }
 
+
    private void Update()
    {
+         // Consider factoring out the input to be more generic…
+         // Possibly it will only RollOrReset upon receiving a particular event?
       if (Input.GetKeyDown(KeyCode.Space))
       {
-         RollOrReset();
+            // If dice are in their starting state, drop them
+         if (!_hasThrown && !_hasLanded)
+         {
+            ReleaseDropSpin();
+         }
+         else if (_hasThrown && _hasLanded)
+         {
+            Reset();
+         }
       }
+         // Die has landed, if cocked, reset and 
       if (_rigidbody.IsSleeping() && !_hasLanded && _hasThrown)
       {
          _hasLanded             = true;
-         _rigidbody.useGravity  = false;
-         _rigidbody.isKinematic = true;
-         SideValueCheck();
-      }
-      else if (_hasLanded && _isCocked)
-      {
-         Reset();
-         ReleaseDropSpin();
+         _rigidbody.useGravity  = false; // Cannot be moved by gravity
+         _rigidbody.isKinematic = true;  // Cannot be moved by other physics objects
+         ValueCheck();
+
+         if (_isCocked)
+         {
+            Reset();
+            ReleaseDropSpin();
+         }
       }
    }
+
 
    private void ReleaseDropSpin()
    {
       _hasThrown            = true;
       _rigidbody.useGravity = true;
-      _rigidbody.AddTorque(GetRandomVector3(0, 500));
+      _rigidbody.AddTorque(GetRandomVector3(0, 2000));
    }
 
-   private void RollOrReset()
-   {
-      if (!_hasThrown && !_hasLanded)
-      {
-         ReleaseDropSpin();
-      }
-      else if (_hasThrown && _hasLanded)
-      {
-         Reset();
-      }
-   }
 
    private void Reset()
    {
@@ -68,23 +73,25 @@ public class Die : MonoBehaviour
       _rigidbody.useGravity  = false;
       _rigidbody.isKinematic = false;
       _isCocked              = false;
-      _diceValue             = int.MinValue;
+      _value                 = int.MinValue;
    }
 
-   private void SideValueCheck()
+
+   private void ValueCheck()
    {
       _isCocked = true;
 
-      foreach (var side in _diceSides)
+      foreach (var face in _faces)
       {
-          if (side.OnGround)
+          if (face.OnGround)
           {
              _isCocked  = false;
-             _diceValue = side.SideValue;
-             Debug.Log($"{_diceValue} has been rolled");
+             _value     = face.Value;
+             Debug.Log($"{_value} has been rolled");
           }
       }
    }
+
 
    private Quaternion GetRandomRotation()
    {
@@ -96,6 +103,7 @@ public class Die : MonoBehaviour
 
       return randomRotation;
    }
+
 
    private Vector3 GetRandomVector3(int low, int high)
    {

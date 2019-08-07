@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 
-public class DieSide : MonoBehaviour
+public class DieFace : MonoBehaviour
 {
-      // Represents opposite face of the sphere collider.
+      // Represents value of die when this face is down
    [SerializeField]
-   private int  _sideValue = int.MinValue;
+   private int _value = int.MinValue;
+
    private bool _onGround;
 
    public bool OnGround  { get { return _onGround;  }}
-   public int  SideValue { get { return _sideValue; }}
+   public int  Value     { get { return _value;     }}
 
 
    private void OnTriggerEnter(Collider other)
    {
-      if (other.tag == "Ground")
+      if (other.tag == "DieLanding")
       {
          _onGround = true;
       }
@@ -21,7 +22,7 @@ public class DieSide : MonoBehaviour
 
    private void OnTriggerExit(Collider other)
    {
-      if (other.tag == "Ground")
+      if (other.tag == "DieLanding")
       {
          _onGround = false;
       }

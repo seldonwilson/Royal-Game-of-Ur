@@ -113,7 +113,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &907736690056000344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ef3998ed23b4f2fb521fefbd90775f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _diceSides:
-  - {fileID: 3918615365115953638}
+  _faces:
+  - {fileID: 114911874292397173}
   - {fileID: 3526485013395817372}
   - {fileID: 1902031218580672059}
   - {fileID: 322616884721302481}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5284033584c3e477a8b969e8bc142804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sideValue: 2
+  _value: 2
 --- !u!1 &5973654844331891912
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5284033584c3e477a8b969e8bc142804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sideValue: 3
+  _value: 3
 --- !u!1 &6080609928261755465
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434139258771216999}
   - component: {fileID: 8392326952467857163}
-  - component: {fileID: 3918615365115953638}
+  - component: {fileID: 114911874292397173}
   m_Layer: 0
   m_Name: Collider1
   m_TagString: Untagged
@@ -292,7 +292,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3918615365115953638
+--- !u!114 &114911874292397173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5284033584c3e477a8b969e8bc142804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sideValue: 1
+  _value: 1
 --- !u!1 &7433269426693282149
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,4 +362,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5284033584c3e477a8b969e8bc142804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sideValue: 4
+  _value: 4
